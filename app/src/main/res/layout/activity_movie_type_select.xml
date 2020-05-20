@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".movie_select.MovieSelectActivity">
+
+
+    <ImageView
+        android:id="@+id/imageViewDrama"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnComedy"
+        app:srcCompat="@drawable/drama_img"
+        tools:srcCompat="@drawable/drama_img" />
+
+    <Button
+        android:id="@+id/btnDrama"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/drama_activity_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDrama" />
+
+    <ImageView
+        android:id="@+id/imageViewAction"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHorror"
+        app:srcCompat="@drawable/action_img"
+        tools:srcCompat="@drawable/action_img" />
+
+    <Button
+        android:id="@+id/btnAction"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/action_activity_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAction" />
+
+    <ImageView
+        android:id="@+id/imageViewComedy"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFantasy"
+        app:srcCompat="@drawable/comedy_img"
+        tools:srcCompat="@drawable/comedy_img" />
+
+    <Button
+        android:id="@+id/btnComedy"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/comedy_activity_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewComedy" />
+
+    <Button
+        android:id="@+id/btnHorror"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/horror_activity_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHorror" />
+
+    <ImageView
+        android:id="@+id/imageViewHorror"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDetective"
+        app:srcCompat="@drawable/horror_img"
+        tools:srcCompat="@drawable/horror_img" />
+
+    <Button
+        android:id="@+id/btnFantasy"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/fantasy_activity_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFantasy" />
+
+    <ImageView
+        android:id="@+id/imageViewFantasy"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fantasy_img"
+        tools:srcCompat="@drawable/fantasy_img" />
+
+    <ImageView
+        android:id="@+id/imageViewDetective"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/detective_img" />
+
+    <Button
+        android:id="@+id/btnDetective"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/detective_activity_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDetective" />
+
+    <Button
+        android:id="@+id/btnRand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/random_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

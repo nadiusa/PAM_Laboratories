@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sample.app">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="MOVIE BOX"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".movie_select.MovieSelectActivity"/>
+<!--            android:label="RandomSelection"-->
+
+        <activity
+            android:name=".movie_select.movieGenres.ActionActivity"
+            android:label="@string/action_activity_name"
+            />
+        <activity android:name=".movie_select.movieGenres.ComedyActivity"/>
+        <activity android:name=".movie_select.movieGenres.DetectiveActivity"/>
+        <activity android:name=".movie_select.movieGenres.DramaActivity"
+            android:label="@string/top_rated"/>
+        <activity android:name=".movie_select.movieGenres.FantasyActivity"/>
+        <activity android:name=".movie_select.movieGenres.HorrorActivity"
+            android:label="@string/genres_tag"/>
+        <activity
+            android:name=".DetailActivity"
+            android:label="Movies"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".movie_select.MovieSelectActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".movie_select.MovieSelectActivity"/>
+        </activity>
+        <activity
+            android:name=".tabs_screens.tabs.TabsActivity"
+            android:theme="@style/App.NoActionBar" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" /> <!-- Add for suppressing warning that app is not indexed by Google -->
+            </intent-filter>
+        </activity>
+
+
+
+    </application>
+
+</manifest>
