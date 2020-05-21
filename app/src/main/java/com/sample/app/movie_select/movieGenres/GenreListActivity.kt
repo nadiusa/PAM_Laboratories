@@ -15,41 +15,39 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.app.BuildConfig
 import com.sample.app.R
+import com.sample.app.adapter.GenresAdapter
 import com.sample.app.adapter.MoviesAdapter
 import com.sample.app.api.Client
 import com.sample.app.api.Service
-import com.sample.app.model.Movie
-import com.sample.app.model.MoviesResponse
+import com.sample.app.model.Genre
+import com.sample.app.model.GenresResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DramaActivity : AppCompatActivity(){
-
-
+class GenreListActivity : AppCompatActivity(){
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MoviesAdapter
-    private lateinit var movieList: List<Movie>
+    private lateinit var adapter: GenresAdapter
+    public lateinit var genreList: List<Genre>
     val LOG_TAG = MoviesAdapter::class.java.name
     private lateinit var progressDialog : ProgressDialog
-
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.drama_list_activity)
+        setContentView(R.layout.genres_list_activity)
 
         initViews()
     }
 
     private fun initViews(){
         progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Fetching Drama movies...")
+        progressDialog.setMessage("Fetching genres from DB...")
         progressDialog.setCancelable(false)
         progressDialog.show()
 
         recyclerView = findViewById(R.id.feed_recycler_view)
 
-        movieList = listOf()
-        adapter = MoviesAdapter(this, movieList)
+        genreList = listOf()
+        adapter = GenresAdapter(this, genreList)
 
 
         if(getScreenOrientation(this) == "SCREEN_ORIENTATION_PORTRAIT"){
@@ -74,25 +72,25 @@ class DramaActivity : AppCompatActivity(){
 
             val client = Client()
             var apiService = client.getClient().create(Service::class.java)
-            val call : Call<MoviesResponse>
-            call = apiService.getTopRatedMovies(BuildConfig.MOVIE_BOX_API_TOKEN)
-            call.enqueue(object : Callback<MoviesResponse> {
-                override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
-                    var movies : List<Movie> = response.body()!!.results
-                    recyclerView.adapter = MoviesAdapter(applicationContext, movies)
+            val call : Call<GenresResponse>
+            call = apiService.getMovieGenres(BuildConfig.MOVIE_BOX_API_TOKEN)
+            call.enqueue(object : Callback<GenresResponse> {
+                override fun onResponse(call: Call<GenresResponse>, response: Response<GenresResponse>) {
+                    var genres : List<Genre> = response.body()!!.genres
+                    recyclerView.adapter = GenresAdapter(applicationContext, genres)
                     recyclerView.smoothScrollToPosition(0)
                     progressDialog.dismiss()
                 }
 
-                override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GenresResponse>, t: Throwable) {
                     Log.d("Error", t.message)
-                    Toast.makeText(this@DramaActivity, "Error Fetching Data!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@GenreListActivity, "Error Fetching Data!", Toast.LENGTH_SHORT).show()
                 }
             })
 
         } catch (e : Exception){
             Log.d("Error", e.message)
-            Toast.makeText(this@DramaActivity, e.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@GenreListActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -119,7 +117,6 @@ class DramaActivity : AppCompatActivity(){
             else -> return "SCREEN_ORIENTATION_REVERSE_LANDSCAPE"
         }
     }
-
 
 
 }

@@ -6,7 +6,7 @@
     <string name="drama_activity_name">DRAMA</string>
     <string name="fantasy_activity_name">FANTASY</string>
     <string name="horror_activity_name">HORROR</string>
-    <string name="random_button">Random</string>
+    <string name="random_button">Random Movie</string>
     <string name="action_settings">Settings</string>
     <string name="movie_name">Movie Title</string>
     <string name="movie_details">Movie Details</string>

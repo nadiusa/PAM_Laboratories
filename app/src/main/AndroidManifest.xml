@@ -22,10 +22,11 @@
         <activity android:name=".movie_select.movieGenres.ComedyActivity"/>
         <activity android:name=".movie_select.movieGenres.DetectiveActivity"/>
         <activity android:name=".movie_select.movieGenres.DramaActivity"
-            android:label="@string/top_rated"/>
-        <activity android:name=".movie_select.movieGenres.FantasyActivity"/>
+            android:label="@string/drama_activity_name"/>
+        <activity android:name=".movie_select.movieGenres.FantasyActivity"
+            android:label="@string/fantasy_activity_name"/>
         <activity android:name=".movie_select.movieGenres.HorrorActivity"
-            android:label="@string/genres_tag"/>
+            android:label="@string/horror_activity_name"/>
         <activity
             android:name=".DetailActivity"
             android:label="Movies"
@@ -35,6 +36,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".movie_select.MovieSelectActivity"/>
         </activity>
+        <activity android:name=".movie_select.movieGenres.RandomActivity"
+            android:label="@string/random_button"/>
         <activity
             android:name=".tabs_screens.tabs.TabsActivity"
             android:theme="@style/App.NoActionBar" />

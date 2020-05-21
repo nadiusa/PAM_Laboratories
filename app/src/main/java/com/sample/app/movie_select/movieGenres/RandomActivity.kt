@@ -18,42 +18,40 @@ import com.sample.app.R
 import com.sample.app.adapter.MoviesAdapter
 import com.sample.app.api.Client
 import com.sample.app.api.Service
-import com.sample.app.model.Genre
-import com.sample.app.model.GenresResponse
 import com.sample.app.model.Movie
 import com.sample.app.model.MoviesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
-class FantasyActivity : AppCompatActivity(){
+
+class RandomActivity : AppCompatActivity(){
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MoviesAdapter
     private lateinit var movieList: List<Movie>
-    private lateinit var fantasyMoviesList: MutableList<Movie>
     private var genre_id :Int = 0
 
     val LOG_TAG = MoviesAdapter::class.java.name
     private lateinit var progressDialog : ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fantasy_list_activity)
+        setContentView(R.layout.action_list_activity)
 
         initViews()
     }
 
     private fun initViews(){
         progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Fetching Fantasy movies...")
+        progressDialog.setMessage("Getting a random movie...")
         progressDialog.setCancelable(false)
         progressDialog.show()
 
         recyclerView = findViewById(R.id.feed_recycler_view)
 
         movieList = listOf()
-        fantasyMoviesList = mutableListOf()
         adapter = MoviesAdapter(this, movieList)
 
 
@@ -77,7 +75,6 @@ class FantasyActivity : AppCompatActivity(){
                 progressDialog.dismiss()
                 return
             }
-//            getGenreId()
 
             val client = Client()
             var apiService = client.getClient().create(Service::class.java)
@@ -86,19 +83,11 @@ class FantasyActivity : AppCompatActivity(){
             call.enqueue(object : Callback<MoviesResponse> {
                 override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     var movies : List<Movie> = response.body()!!.results
-                    movies = shuffle(movies as MutableList<Movie>)
-
-//                    val iterator = movies.iterator()
-//                    var i = 0
-//                    while (iterator.hasNext()) {
-//                        if (i < movies.size) {
-//                            if (movies[i].genre_ids.contains(genre_id)) {
-//                                dramaMoviesList.add(movies[i])
-//                            }
-//                            i++
-//                        }
-//                    }
-
+                   movies = shuffle(movies as MutableList<Movie>)
+                    movies = (movies as MutableList<Movie>)
+                    var randomMovie = movies[getRandomNumber(movies.size)]
+                    movies.clear()
+                    movies.add(randomMovie)
                     recyclerView.adapter = MoviesAdapter(applicationContext, movies)
                     recyclerView.smoothScrollToPosition(0)
                     progressDialog.dismiss()
@@ -106,13 +95,13 @@ class FantasyActivity : AppCompatActivity(){
 
                 override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                     Log.d("Error", t.message)
-                    Toast.makeText(this@FantasyActivity, "Error Fetching Data!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RandomActivity, "Error Fetching Data!", Toast.LENGTH_SHORT).show()
                 }
             })
 
         } catch (e : Exception){
             Log.d("Error", e.message)
-            Toast.makeText(this@FantasyActivity, e.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@RandomActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -130,7 +119,7 @@ class FantasyActivity : AppCompatActivity(){
         }
     }
 
-    private fun getScreenOrientation(context: Context): String {
+   private fun getScreenOrientation(context: Context): String {
         val screenOrientation = (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.orientation
         when (screenOrientation) {
             Surface.ROTATION_0 -> return "SCREEN_ORIENTATION_PORTRAIT"
@@ -139,49 +128,6 @@ class FantasyActivity : AppCompatActivity(){
             else -> return "SCREEN_ORIENTATION_REVERSE_LANDSCAPE"
         }
     }
-
-
-    private fun getGenreId() {
-        try {
-            if(BuildConfig.MOVIE_BOX_API_TOKEN.isEmpty()){
-                Toast.makeText(applicationContext, "Please, obtain first API key from ......", Toast.LENGTH_SHORT).show()
-            }
-            val client = Client()
-            var apiService = client.getClient().create(Service::class.java)
-            val call : Call<GenresResponse>
-            call = apiService.getMovieGenres(BuildConfig.MOVIE_BOX_API_TOKEN)
-            call.enqueue(object : Callback<GenresResponse> {
-                override fun onResponse(call: Call<GenresResponse>, response: Response<GenresResponse>) {
-                    var genres : List<Genre> = response.body()!!.genres
-
-                    var genre = genres.iterator()
-                    var i = 0
-                    while (genre.hasNext()) {
-                        if(genres[i].name == "Fantasy"){
-                            println("current genre id   ${genres[i].id}")
-                            genre_id = genres[i].id
-                            println("gen id   $genre_id")
-                            break
-                        } else {
-                            genre_id = 0
-                            i++
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<GenresResponse>, t: Throwable) {
-                    Log.d("Error", t.message)
-                    Toast.makeText(this@FantasyActivity, "Error Fetching Data!", Toast.LENGTH_SHORT).show()
-                }
-            })
-
-        } catch (e : Exception){
-            Log.d("Error", e.message)
-            Toast.makeText(this@FantasyActivity, e.toString(), Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
 
     fun shuffle(list: MutableList<Movie>): List<Movie> {
         // start from beginning of the list
@@ -196,5 +142,13 @@ class FantasyActivity : AppCompatActivity(){
             list[j] = temp
         }
         return list
+    }
+
+    private fun getRandomNumber(size : Int) : Int {
+        var rand: Int = 0
+        for (i in 0..0) {
+            rand = ThreadLocalRandom.current().nextInt(1, size)
+        }
+        return rand
     }
 }

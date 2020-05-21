@@ -25,6 +25,7 @@ import com.sample.app.model.MoviesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 
 class ActionActivity : AppCompatActivity(){
@@ -33,6 +34,7 @@ class ActionActivity : AppCompatActivity(){
     private lateinit var adapter: MoviesAdapter
     private lateinit var movieList: List<Movie>
     private lateinit var actionMoviesList: MutableList<Movie>
+    private var genre_id :Int = 0
 
     val LOG_TAG = MoviesAdapter::class.java.name
     private lateinit var progressDialog : ProgressDialog
@@ -45,7 +47,7 @@ class ActionActivity : AppCompatActivity(){
 
     private fun initViews(){
         progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Fetching popular movies...")
+        progressDialog.setMessage("Fetching Action movies...")
         progressDialog.setCancelable(false)
         progressDialog.show()
 
@@ -53,7 +55,7 @@ class ActionActivity : AppCompatActivity(){
 
         movieList = listOf()
         actionMoviesList = mutableListOf()
-        adapter = MoviesAdapter(this, actionMoviesList)
+        adapter = MoviesAdapter(this, movieList)
 
 
         if(getScreenOrientation(this) == "SCREEN_ORIENTATION_PORTRAIT"){
@@ -65,6 +67,7 @@ class ActionActivity : AppCompatActivity(){
         recyclerView.adapter = adapter
 
         adapter.notifyDataSetChanged()
+
         loadJSON()
     }
 
@@ -75,6 +78,7 @@ class ActionActivity : AppCompatActivity(){
                 progressDialog.dismiss()
                 return
             }
+//            getGenreId()
 
             val client = Client()
             var apiService = client.getClient().create(Service::class.java)
@@ -83,14 +87,16 @@ class ActionActivity : AppCompatActivity(){
             call.enqueue(object : Callback<MoviesResponse> {
                 override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     var movies : List<Movie> = response.body()!!.results
+                   movies = shuffle(movies as MutableList<Movie>)
+
 //                    val iterator = movies.iterator()
 //                    var i = 0
 //                    while (iterator.hasNext()) {
-//                        getGenreId()
-//                        println("Genre id  ${getGenreId()}")
-//
-//                        if(movies[i].genre_ids.contains(getGenreId())){
-//                            actionMoviesList.add(movies[i])
+//                        if (i < movies.size) {
+//                            if (movies[i].genre_ids.contains(genre_id)) {
+//                                actionMoviesList.add(movies[i])
+//                            }
+//                            i++
 //                        }
 //                    }
 
@@ -136,13 +142,11 @@ class ActionActivity : AppCompatActivity(){
     }
 
 
-    private fun getGenreId(): Int {
-        var movie_genre_id = 0
+    private fun getGenreId() {
         try {
             if(BuildConfig.MOVIE_BOX_API_TOKEN.isEmpty()){
                 Toast.makeText(applicationContext, "Please, obtain first API key from ......", Toast.LENGTH_SHORT).show()
             }
-
             val client = Client()
             var apiService = client.getClient().create(Service::class.java)
             val call : Call<GenresResponse>
@@ -151,13 +155,16 @@ class ActionActivity : AppCompatActivity(){
                 override fun onResponse(call: Call<GenresResponse>, response: Response<GenresResponse>) {
                     var genres : List<Genre> = response.body()!!.genres
 
-                    val genre = genres.iterator()
+                    var genre = genres.iterator()
                     var i = 0
                     while (genre.hasNext()) {
-                        if(genres[i].name.equals("Action")){
-                            movie_genre_id = genres[i].id
+                        if(genres[i].name == "Action"){
+                            println("current genre id   ${genres[i].id}")
+                            genre_id = genres[i].id
+                            println("gen id   $genre_id")
                             break
                         } else {
+                            genre_id = 0
                             i++
                         }
                     }
@@ -173,9 +180,24 @@ class ActionActivity : AppCompatActivity(){
             Log.d("Error", e.message)
             Toast.makeText(this@ActionActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
-        return movie_genre_id
+
     }
 
+
+    fun shuffle(list: MutableList<Movie>): List<Movie> {
+        // start from beginning of the list
+        for (i in 0 until list.size - 1)
+        {
+            // get a random index j such that i <= j <= n
+            val j = i + Random.nextInt(list.size - i)
+
+            // swap element at i'th position in the list with element at j'th position
+            val temp = list[i]
+            list[i] = list[j]
+            list[j] = temp
+        }
+        return list
+    }
 
 
 }
