@@ -4,10 +4,12 @@
 ### Application description
 
 #### The idea of MOVIE BOX android application is to give the possibility to user to find a movie, by category, and to get all information about it, such as:
-
-->#### Title;
-
- Overview, User rating, Popularity, Release Date!
+####
+- Title;
+- Overview;
+- User rating;
+- Popularity;
+- Release Date. ####
 
 #### Also the user should be able to get most popular movies and most rated ones. As a feature of this app should be random choosing film.
 
