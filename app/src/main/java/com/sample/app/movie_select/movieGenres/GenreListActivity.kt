@@ -28,7 +28,7 @@ import retrofit2.Response
 class GenreListActivity : AppCompatActivity(){
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GenresAdapter
-    public lateinit var genreList: List<Genre>
+    lateinit var genreList: List<Genre>
     val LOG_TAG = MoviesAdapter::class.java.name
     private lateinit var progressDialog : ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?){

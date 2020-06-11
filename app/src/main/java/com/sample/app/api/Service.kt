@@ -22,4 +22,10 @@ interface Service {
     @GET("movie/{movie_id}/videos")
     fun getMovieTrailer(@Path("movie_id") id: Int, @Query("api_key") apiKey: String): Call <TrailerResponse>
 
+    @GET("movie/{movie_id}/similar")
+    fun getSimilarMovies(@Path("movie_id") id: Int, @Query("api_key") apiKey: String): Call <MoviesResponse>
+
+    @GET("movie /now_playing")
+    fun getPlayingNowMovies(@Query("api_key") apiKey: String): Call <MoviesResponse>
+
 }

@@ -39,7 +39,6 @@ class MovieSelectActivity : AppCompatActivity() {
         }
 
 
-
         btnDrama.setOnClickListener {
             val intent = Intent(this, DramaActivity::class.java)
             startActivity(intent)

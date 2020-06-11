@@ -1,5 +1,6 @@
 package com.sample.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -18,6 +19,9 @@ import com.sample.app.api.Service
 import com.sample.app.model.MoviesResponse
 import com.sample.app.model.Trailer
 import com.sample.app.model.TrailerResponse
+import com.sample.app.movie_select.MovieSelectActivity
+import com.sample.app.tabs_screens.tabs.TabsActivity
+import kotlinx.android.synthetic.main.content_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,6 +79,11 @@ class DetailActivity : AppCompatActivity() {
         } else{
             Toast.makeText(this, "No API Data", Toast.LENGTH_SHORT).show()
         }
+
+        similar_movie.setOnClickListener{
+            startActivity(Intent(this, TabsActivity::class.java))
+        }
+
 
 //        initViews()
     }
@@ -150,5 +159,6 @@ class DetailActivity : AppCompatActivity() {
             Toast.makeText(this@DetailActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }

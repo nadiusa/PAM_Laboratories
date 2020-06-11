@@ -130,6 +130,20 @@
                 android:textSize="20sp"
                 android:layout_below="@+id/popularity"/>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/similar_movie"
+                android:layout_marginLeft="@dimen/layout_margin_left"
+                android:text="@string/similar_movies"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/layout_margin_top"
+                android:background="@drawable/button_bg_rounded_corners"
+                android:textColor="@color/design_default_color_background"
+                android:textSize="25sp"
+                android:layout_below="@+id/popularityNumb"/>
+
         </LinearLayout>
     </ScrollView>
 <!--    <LinearLayout-->
