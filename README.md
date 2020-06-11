@@ -9,7 +9,7 @@
 - Overview;
 - User rating;
 - Popularity;
-- Release Date. ####
+- Release Date.
 
 #### Also the user should be able to get most popular movies and most rated ones. As a feature of this app should be random choosing film.
 
